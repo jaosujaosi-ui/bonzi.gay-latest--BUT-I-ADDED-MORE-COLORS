@@ -47,6 +47,13 @@ html {
     position: fixed;
 }
 
+#canvas {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    pointer-events: none;
+}
+
 body {
     background-color: #452066;
 }
@@ -209,6 +216,11 @@ input[type="text"] {
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Pusab';
+    src: url("font/pusab.otf");
+}
+
 .bonzi {
     position: fixed;
     top: 0;
@@ -218,6 +230,18 @@ input[type="text"] {
     user-select: none;
     touch-action: none;
     background-repeat: no-repeat;
+    -webkit-touch-callout: none;
+}
+
+.bonzi_hat {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    z-index: 1;
 }
 
 .bubble {
@@ -397,6 +421,8 @@ body.vaporwave #chat_send:active {
 
 #chat_bar {
     position: absolute;
+    display: flex;
+    flex-direction: row;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -411,20 +437,18 @@ body.vaporwave #chat_send:active {
     background-repeat: no-repeat;
     background-position: left;
     background-size: 5px 30px, 100% 100%;
-    vertical-align: middle;
-    padding-left: 7px;
-    padding-top: 3px;
-    width: 22px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .chat_bar_top {
     top: 0;
 }
 
-#chat_send {
-    width: 100px;
+#chat_send, #start_button {
     user-select: none;
-    background-image: url("img/desktop/start.png");
     background-size: 100%;
     background-repeat: no-repeat;
     box-sizing: border-box;
@@ -434,24 +458,35 @@ body.vaporwave #chat_send:active {
     letter-spacing: 2px;
     font-size: 16px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.75);
-    padding-left: 35px;
+    padding-top: 5px;
 }
 
-#chat_send:hover {
+#chat_send {
+    background-image: url("img/desktop/start.png");
+    padding-left: 35px;
+    width: 100px;
+}
+
+#chat_send:hover, #start_button:hover {
     background-position: 0 -33px;
 }
 
-#chat_send:active {
+#chat_send:active, #start_button:active {
     background-position: 0 -67px;
 }
 
-#chat_message_cont {
-    padding: 4px;
-    display: flex;
+#start_button {
+    background-image: url("img/desktop/startthin.png");
+    padding-left: 7px;
+    margin-left: -6px;
+    width: 33px;
+    z-index: -1;
 }
 
 #chat_message {
     flex: 1;
+    margin: 4px;
+    width: 0px;
 }
 
 #room_info {
@@ -649,6 +684,7 @@ body.vaporwave #chat_log_button:active {
 }
 
 #chat_log .window_body {
+    justify-content: flex-start;
     display: flex;
 }
 
@@ -706,7 +742,9 @@ body.vaporwave .window_header {
 
 .window_body {
     flex: 1;
-    padding: 4px 6px 6px 6px;
+    display: flex;
+    align-items: stretch;
+    padding: 0px 5px 5px 5px;
     border-image: url("img/desktop/window_border.png") 0 6 6 6 / 0px 6px 6px 6px;
     image-rendering: pixelated;
     background: #ffe;
@@ -739,6 +777,78 @@ body.vaporwave .window_close {
     background-position-y: -42px;
 }
 
+.resize_nw,
+.resize_ne,
+.resize_sw,
+.resize_se,
+.resize_n,
+.resize_w,
+.resize_s,
+.resize_e {
+    position: absolute;
+    user-select: none;
+}
+
+.resize_nw {
+    cursor: nwse-resize;
+    width: 8px;
+    height: 8px;
+    top: -4px;
+    left: -4px;
+}
+
+.resize_ne {
+    cursor: nesw-resize;
+    width: 8px;
+    height: 8px;
+    top: -4px;
+    right: -4px;
+}
+
+.resize_sw {
+    cursor: nesw-resize;
+    width: 8px;
+    height: 8px;
+    bottom: -4px;
+    left: -4px;
+}
+
+.resize_se {
+    cursor: nwse-resize;
+    width: 8px;
+    height: 8px;
+    bottom: -4px;
+    right: -4px;
+}
+
+.resize_n {
+    cursor: ns-resize;
+    height: 8px;
+    top: -4px;
+    inset-inline: 4px;
+}
+
+.resize_w {
+    cursor: ew-resize;
+    width: 8px;
+    left: -4px;
+    inset-block: 4px;
+}
+
+.resize_s {
+    cursor: ns-resize;
+    height: 8px;
+    bottom: -4px;
+    inset-inline: 4px;
+}
+
+.resize_e {
+    cursor: ew-resize;
+    width: 8px;
+    right: -4px;
+    inset-block: 4px;
+}
+
 .log_message {
     display: flex;
     flex-direction: row;
@@ -756,17 +866,30 @@ body.vaporwave .window_close {
     color: #bbb;
 }
 
-.reply {
+.reply, .ban, .delete {
     display: none;
     width: 14px;
     height: 14px;
     margin: 2px;
     position: absolute;
     top: 1px;
-    right: 1px;
-    background: url("img/reply.svg") center / contain;
     cursor: pointer;
     user-select: none;
+}
+
+.reply {
+    right: 1px;
+    background: url("img/reply.svg") center / contain;
+}
+
+.delete {
+    right: 16px;
+    background: url("img/trash.svg") center / contain;
+}
+
+.ban {
+    right: 32px;
+    background: url("img/ban.svg") center / contain;
 }
 
 .userimage {
@@ -781,7 +904,7 @@ body.vaporwave .window_close {
     background: black;
 }
 
-.log_message:hover .reply {
+.log_message:hover .reply, .log_message:hover .ban, .log_message:hover .delete {
     display: block;
 }
 
@@ -830,40 +953,98 @@ hr {
     z-index: 9999;
 }
 
-textarea {
+.settings .window_content {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+.settings_sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 120px;
+    border-right: 1px solid grey;
+}
+
+.settings_category {
+    cursor: pointer;
+    user-select: none;
+    padding: 2px;
+    padding-left: 16px;
+    border-left: 3px solid transparent;
+}
+
+.settings_category.selected {
+    background-color: #ddb;
+}
+
+.settings_content {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.settings_content>label {
+    align-self: start;
+}
+
+.settings_content input[type=checkbox] {
+    margin-left: 0;
+}
+
+small {
+    color: grey;
+}
+
+.window_content {
+    flex: 1;
+    padding: 2px;
+    overflow: hidden auto;
+}
+
+.alert_body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+}
+
+.alert_button_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2px;
+}
+
+.alert_text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.settings_textarea {
+    flex: 1;
+    margin-top: 2px;
+}
+
+textarea {
     background: white;
     border: 1px solid black;
+    margin: 0;
     resize: none;
-    margin: 1px 0 1px 0;
 }
 
-.settings .window_body {
-    display: flex;
-    flex-direction: column;
-    padding: 10px 16px 16px 16px;
-}
-
-.blacklist {
-    min-height: 0;
-    flex: 1;
+.export_window .window_content {
     display: flex;
     flex-direction: column;
     gap: 4px;
 }
 
-.export_window .window_body {
+.import_window .window_content {
     display: flex;
     flex-direction: column;
     gap: 4px;
-    padding: 0px 6px 5px 6px;
-}
-
-.import_window .window_body {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding: 5px 10px 10px 10px;
 }
 
 .button_row {
@@ -871,6 +1052,10 @@ textarea {
     flex-direction: row;
     justify-content: end;
     gap: 2px;
+}
+
+.settings .button_row {
+    margin-top: 2px;
 }
 
 .button_row>button {
@@ -1116,10 +1301,11 @@ gay-rainbow code {
 .angel { background-image: url("img/bonzi/blessed.webp"); }
 .glow { background-image: url("img/bonzi/glow.webp"); }
 .noob { background-image: url("img/bonzi/noob.webp"); }
+.gold { background-image: url("img/bonzi/gold.webp"); }
 .dank { background-image: url("img/bonzi/dank.webp"); }
 .illuminati { background-image: url("img/bonzi/illuminati.webp"); }
 .cigar { background-image: url("img/bonzi/cigar.webp"); }
-.bear { background-image: url("img/bonzi/bear.webp"); }
+.propeller { background-image: url("img/bonzi/propeller.webp"); }
 
 .explosion {
     width: 71px;
@@ -1135,6 +1321,347 @@ gay-rainbow code {
 
 @keyframes explosion {
     100% { background-position: -1207px; }
+}
+
+#start_menu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    bottom: 30px;
+    left: 95px;
+    width: 300px;
+    height: 500px;
+    border-image: url("img/desktop/start_menu.png") 64 59 40 59 / 64px 59px 40px 59px;
+    box-shadow: 2px 2px 4px #0004;
+    border-top-right-radius: 7px;
+    image-rendering: pixelated;
+    z-index: 10000;
+}
+
+#start_menu_pfp {
+    position: absolute;
+    top: 6px;
+    left: 8px;
+    width: 54px;
+    height: 54px;
+    border: 3px solid #ffffffaa;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background: #0f0f0f url("img/pfp/purple.webp");
+    background-size: contain;
+    image-rendering: auto;
+    cursor: pointer;
+}
+
+#start_menu_name {
+    position: absolute;
+    font-size: 20px;
+    top: 21px;
+    left: 70px;
+    width: 230px;
+    color: white;
+    outline: none;
+    padding: 0;
+    border: none;
+    background: none;
+    text-shadow: #000000aa 2px 2px 2px;
+}
+
+#start_menu_body {
+    position: absolute;
+    top: 64px;
+    left: 2px;
+    bottom: 40px;
+    right: 2px;
+    padding-top: 6px;
+    background:
+        linear-gradient(to bottom, transparent 2px, white 2px), 
+        linear-gradient(in srgb-linear to right, white, #cc0 10% 90%, white);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.start_menu_item {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    height: 40px;
+    padding: 2px 2px 2px 12px;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.start_menu_item:hover {
+    background-color: #88aaff;
+    color: white;
+}
+
+.start_menu_item_icon {
+    image-rendering: auto;
+    aspect-ratio: 1 / 1;
+    height: 100%;
+}
+
+.start_menu_item_details {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    align-self: center;
+    flex: 1;
+}
+
+.start_menu_item_name {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.start_menu_item_description {
+    font-size: 12px;
+}
+
+#start_menu_vault {
+    position: absolute;
+    bottom: 4px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    background: url("img/desktop/vault.png");
+    cursor: pointer;
+}
+
+.bonzi_editor h2 {
+    border-bottom: 1px solid #000a;
+    margin-bottom: 4px;
+}
+
+.hats {
+    flex: 1;
+    border-right: 1px solid lightgrey;
+    padding: 8px;
+}
+
+.editor-grid {
+    margin-bottom: 12px;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 2px;
+}
+
+.editor-item {
+    cursor: pointer;
+    position: relative;
+    border: 1px solid #000a;
+    image-rendering: auto;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 48px;
+    height: 48px;
+}
+
+.locked-item {
+    cursor: not-allowed;
+}
+
+.locked-item::after {
+    content: "";
+    background: url("img/misc/lock_small.webp") no-repeat center / 24px 24px, #0000009f; 
+    position: absolute;
+    inset: -1px;
+    pointer-events: none;
+}
+
+.preview-container {
+    padding: 8px;
+}
+
+.preview {
+    height: 140px;
+    width: 160px;
+    background-position: -20px -20px;
+    background-repeat: no-repeat;
+    background-image: url("img/bonzi/purple.webp");
+}
+
+.vault-body {
+    flex: 1;
+    background: linear-gradient(to bottom, #0a7179, #034e58);
+    position: relative;
+}
+
+.vault-message {
+    position: absolute;
+    height: 60px;
+    top: 20px;
+    inset-inline: 20px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font: 35px pusab;
+    color: white;
+    line-height: 0.7;
+    -webkit-text-stroke: 1px black;
+    text-shadow: #000000CC 2px 2px 2px;
+}
+
+.vault-input {
+    box-sizing: border-box;
+    position: absolute;
+    padding: 20px;
+    font: 40px pusab;
+    color: white;
+    top: 100px;
+    left: calc(50% - 450px / 2);
+    width: 450px;
+    border: none;
+    border-radius: 5px;
+    background: #00000088;
+    outline: none;
+    text-align: center;
+    -webkit-text-stroke: 1px black;
+    text-shadow: #000000CC 2px 2px 2px;
+}
+
+.vault-keeper-container {
+    position: absolute;
+    top: 170px;
+    bottom: 0px;
+    inset-inline: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vault-keeper img {
+    width: 50px;
+    height: 122px;
+    image-rendering: auto;
+    filter: drop-shadow(2px 2px 2px #00000088);
+    cursor: pointer;
+    /* transform-origin: 50% 25px; */
+}
+
+.vault-keeper img:active {
+    transform: scale(1.2);
+    transition: transform 0.2s cubic-bezier(0, 0, 0, 2);
+}
+
+/*!
+ * XP.css
+ *
+ * Copyright 2020 Adam Hammad, Jordan Scales
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
+ * modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the
+ * Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE 
+ * WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR 
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+.xp-button {
+    font-size: 11px;
+    box-sizing: border-box;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(236, 235, 229, 1) 86%,
+        rgba(216, 208, 196, 1) 100%
+    );
+    border: 1px solid #003c74;
+    box-shadow: none;
+    border-radius: 3px;
+    min-height: 23px;
+    padding: 0 12px;
+}
+
+.xp-button:not(:disabled):active {
+    box-shadow: none;
+    background: linear-gradient(
+        180deg,
+        rgba(205, 202, 195, 1) 0%,
+        rgba(227, 227, 219, 1) 8%,
+        rgba(229, 229, 222, 1) 94%,
+        rgba(242, 242, 241, 1) 100%
+    );
+}
+
+.xp-button:not(:disabled, :active):hover {
+    box-shadow: inset -1px 1px #fff0cf, inset 1px 2px #fdd889, inset -2px 2px #fbc761, inset 2px -2px #e5a01a;
+}
+
+.poll-creator-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px;
+}
+
+.poll-title {
+    padding: 4px;
+    font-family: "Tahoma", sans-serif;
+    font-size: 14px;
+    height: 60px;
+    resize: vertical;
+}
+
+.poll-options {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 4px;
+    overflow-y: auto;
+}
+
+.poll-option-row {
+    display: flex;
+    gap: 4px;
+}
+
+.poll-option-row input {
+    flex: 1;
+    padding: 4px;
+}
+
+.poll-buttons {
+    display: flex;
+    justify-content: end;
+    gap: 8px;
+}
+
+.poll_option {
+    margin: 2px 0;
+    padding: 4px;
+    cursor: pointer;
+    border-width: 1px;
+    border-style: solid;
+    user-select: none;
+}
+
+.upload_dropzone {
+    border: 1px solid #645436;
+    background: url("img/misc/upload.svg") no-repeat center / 50px 50px;
+    flex: 1;
+    cursor: pointer;
+}
+
+.upload_buttons {
+    display: flex;
+    justify-content: end;
+    gap: 8px;
+}
+
+.upload_icon {
+    height: 1rem;
+    vertical-align: bottom;
 }
 
 /*!
@@ -1244,10 +1771,7 @@ gay-rainbow code {
 
 /**
  * Inputs
- */
-.context-menu-item.context-menu-input {
-    padding: .3em .6em;
-}
+ */ 
 
 /* vertically align inside labels */
 .context-menu-input>label>* {
@@ -1292,4 +1816,114 @@ gay-rainbow code {
 
 .context-menu-accesskey {
     text-decoration: underline;
+}
+
+.context-menu-item>label>input[type="text"] {
+    margin-top: 4px;
+}
+
+#tooltip {
+    position: fixed;
+    z-index: 10000000;
+    background: #ffffe1;
+    color: black;
+    border: 1px solid black;
+    padding: 3px 6px;
+    font-size: 12px;
+    pointer-events: none;
+    white-space: pre-wrap;
+}
+
+/* THE BUTTON */
+
+.button_container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin-top: 150px;
+    margin-bottom: 20px;
+}
+
+.the_button {
+    width: 220px;
+    height: 200px;
+    background: url("img/event/button.png") 0px / 440px 200px;
+    image-rendering: auto;
+    cursor: pointer;
+}
+
+.the_button:active {
+    background-position-x: -220px;
+}
+
+.button_timer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, calc(-50% - 20px));
+    font-size: 36px;
+    -webkit-text-stroke: 1px white;
+    font-weight: bold;
+    pointer-events: none;
+}
+
+.button_progress {
+    margin: 8px;
+    position: relative;
+}
+
+.button_hat_list {
+    display: flex;
+    position: absolute;
+    inset-inline: -8px;
+    margin-bottom: 7px;
+    top: -23px;
+    justify-content: space-between;
+}
+
+.button_hat {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    background-size: contain;
+    background-color: #FFFFE1;
+    border: 1px solid #000;
+    border-radius: 2px;
+    image-rendering: auto;
+}
+.button_hat::after {
+    content: "";
+    position: absolute;
+    bottom: -7px;
+    left: calc(50% - 4px);
+    width: 9px;
+    height: 7px;
+    background: url("img/event/arrow.png") 9px 7px;
+    image-rendering: auto;
+}
+
+.button_hat_spacer {
+    width: 16px;
+    height: 16px;
+}
+
+.button_progress_bar {
+    border: 1px solid #000;
+    height: 12px;
+    background: white;
+}
+
+.greenhat { background-image: url("img/haticon/greenhat.webp"); }
+.purplehat { background-image: url("img/haticon/purplehat.webp"); }
+.redhat { background-image: url("img/haticon/redhat.webp"); }
+.yellowhat { background-image: url("img/haticon/yellowhat.webp"); }
+.whitehat { background-image: url("img/haticon/whitehat.webp"); }
+.bluehat { background-image: url("img/haticon/bluehat.webp"); }
+
+.button_presses_left {
+    text-align: center;
+}
+
+.button_hat_text {
+    text-align: center;
 }

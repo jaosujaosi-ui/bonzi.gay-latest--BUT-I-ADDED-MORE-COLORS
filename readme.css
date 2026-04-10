@@ -58,6 +58,7 @@ body {
     margin: 32px auto;
     padding: 16px 32px;
     background-color: rgba(255, 255, 225, 0.8);
+    overflow: hidden;
 }
 
 #bonziworld {
@@ -115,4 +116,16 @@ gay-code {
     to {
         background-position-x: 0;
     }
+}
+
+figure {
+    float: right;
+    border: 1px solid #555555;
+    margin: 0;
+    padding: 3px;
+}
+
+figcaption {
+    font-size: 0.8em;
+    color: #555555;
 }

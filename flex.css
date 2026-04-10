@@ -1,13 +1,15 @@
-v-box,
 .vbox {
   display: flex;
   flex-direction: column;
 }
 
-h-box,
 .hbox {
   display: flex;
   flex-direction: row;
+}
+
+.flex_end {
+  justify-content: end;
 }
 
 .fill {
@@ -20,7 +22,16 @@ h-box,
   align-items: center;
 }
 
-.flex_window .window_body {
+.flex_window .window_content {
   display: flex;
   flex-direction: column;
+}
+
+.flex_row_window .window_content {
+  display: flex;
+  flex-direction: row;
+}
+
+.no_padding_window .window_content {
+  padding: 0;
 }

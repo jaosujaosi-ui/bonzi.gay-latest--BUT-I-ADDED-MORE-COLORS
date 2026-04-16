@@ -235,7 +235,7 @@ let dragX = 0;
 let dragY = 0;
 let chatLogDragged = false;
 
-let colors = ["purple", "blue", "green", "yellow", "red", "pink", "brown", "black", "cyan", "black", "pope", "blessed", "white"];
+let colors = ["aqua", "black", "blue", "brown", "cyan", "diamond", "emerald", "god", "gold", "green", "lime", "orange", "pink", "purple", "red", "white", "yellow","quartz", "nethergold","purplesaber","pope","blessed","cameraman","cartoonnetwork","brasilempire","stella","grinnyboi","yan","peedy" ,"bustystickwoman", "femboykisser", "ruby","navy", "chartreuse", "sapphire","lavenderribbon", "clock"];
 let hats = ["tophat", "bfdi", "bieber", "evil", "elon", "kamala", "maga", "troll", "bucket", "obama", "dank", "witch", "wizard"]
 
 let quote = null;

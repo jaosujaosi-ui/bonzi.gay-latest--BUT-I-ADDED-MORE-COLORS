@@ -2154,6 +2154,8 @@ function blessedPopup() {
                     <div class="card glow" onclick="cmd('glow')"></div>
                     <div class="card noob" onclick="cmd('noob')"></div>
                     <div class="card gold" onclick="cmd('gold')"></div>
+                    <div class="card gold" onclick="cmd('clock')"></div>
+                    <div class="card gold" onclick="cmd('purplesaber')"></div>
                 </div>
                 <h3>Hats</h3>
                 <div class="roulette">

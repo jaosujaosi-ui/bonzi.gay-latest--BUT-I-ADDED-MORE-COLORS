@@ -540,7 +540,7 @@ window.BonziData = {
 			},
 			{
 				type: "text",
-				text: ""Bread" is slang for money because it represents a basic necessity of life, symbolizing livelihood and sustenance since the 19th century. The term gained popularity in the 1930s, heavily influenced by Cockney rhyming slang where bread and honey means money, and is linked to the concept of earning one's daily bread. "
+				text: "Bread is slang for money because it represents a basic necessity of life, symbolizing livelihood and sustenance since the 19th century. The term gained popularity in the 1930s, heavily influenced by Cockney rhyming slang where bread and honey means money, and is linked to the concept of earning one's daily bread. "
 			}
 		], [
 			{

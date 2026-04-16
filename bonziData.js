@@ -33,6 +33,7 @@ window.BonziData = {
 			// "bieber",
 			"bucket",
 			"chain",
+		    "headphones2",
 			"elon",
 			"evil",
 			"horse",
@@ -89,7 +90,6 @@ window.BonziData = {
 			"king",
 			"redking",
 			"scarf2",
-			"headphones2",
 			"diamondchain",
 		],
 		event: [
@@ -105,23 +105,48 @@ window.BonziData = {
 
 	colors: {
 		normal: [
-			"purple",
-			"blue",
-			"green",
-			"red",
-			"black",
-			"brown",
-			"yellow",
-			"cyan",
-			"pink",
-			"white",
-			"orange",
+
+"aqua",
+"black",
+"blue", 
+"brown", 
+"cyan", 
+"diamond", 
+"emerald", 
+"gold",
+"green", 
+"lime", 
+"orange", 
+"pink", 
+"purple",
+"red", 
+"white",
+"yellow",
+"quartz", 
+"nethergold",
+"cameraman",
+"cartoonnetwork",
+"brasilempire",
+"stella",
+"grinnyboi",
+"yan",
+"peedy" ,
+"bustystickwoman", 
+"femboykisser", 
+"ruby",
+"navy",
+"chartreuse", 
+"sapphire",
+"lavenderribbon",
 		],
 		blessed: [
 			"angel",
 			"glow",
 			"noob",
 			"gold",
+			"god",
+			"purplesaber",
+			"clock",
 		],
 	},
 	sprite: {
@@ -156,23 +181,191 @@ window.BonziData = {
 		}
 	},
 	to_idle: {
-		shrug_fwd: "shrug_back",
-		shrug_still: "shrug_back",
-
-		earth_fwd: "earth_back",
-		earth_still: "earth_back",
-
-		beat_fwd: "beat_back",
-		beat_still: "beat_back",
-
-		cool_fwd: "cool_back",
-		cool_still: "cool_back",
-
-		praise_fwd: "praise_back",
-		praise_still: "praise_back",
-
-		grin_fwd: "grin_back",
-		grin_still: "grin_back",
+    idle: 0,
+                surf_across_fwd: [1, 8, "surf_across_still", 1],
+                wave: [250, 261, "idle", 1],
+                sad_fwd: [237, 241, "sad_still", 1],
+                sad_still: 241,
+                think_fwd: [242, 247, "think_still", 1],
+                think_still: 247,
+                confused_still: 137,
+                surf_across_still: 9,
+                surf_across_back: {
+                    frames: range(8, 1),
+                    next: "idle",
+                    speed: 1
+                },
+                sad_back: {
+                    frames: range(239, 237),
+                    next: "idle",
+                    speed: 1
+                },
+                confused_fwd: [127, 137, "confused_still", 0.7],
+                think_back: {
+                    frames: range(247, 242),
+                    next: "idle",
+                    speed: 1
+                },
+                confused_back: {
+                    frames: range(137, 127),
+                    next: "idle",
+                    speed: 1
+                },
+                clap_fwd: {
+                    frames: range(10, 14),
+                    next: "clap_still",
+                    speed: 1
+                },
+                clap_clippy_fwd: [10, 12, "clap_clippy_still", 1],
+                clap_still: [13, 15, "clap_still", 1],
+                clap_clippy_still: [13, 13, "clap_clippy_still", 1],
+                clap_back: {
+                    frames: range(15, 10),
+                    next: "idle",
+                    speed: 1
+                },
+                surf_intro: [277, 302, "idle", 1],
+                surf_intro_emote: [277, 302, "wave", 1],
+                surf_away: [16, 38, "gone", 1],
+                surf_away_emote: [16, 38, "gone_emote", 1],
+                gone_emote: [38, 39, "surf_intro_emote"],
+                gone: 39,
+                shrug_fwd: [45, 50, "shrug_still", 1],
+                nod: [40, 44, "idle", 1],
+                shrug_still: 50,
+                shrug_back: {
+                    frames: range(50, 45),
+                    next: "idle",
+                    speed: 1
+                },
+                earth_fwd: [51, 57, "earth_still", 1],
+                earth_still: [58, 80, "earth_still", 1],
+                earth_back: [81, 86, "idle", 1],
+                look_down_fwd: [87, 90, "look_down_still", 1],
+                look_down_still: 91,
+                look_down_back: {
+                    frames: range(90, 87),
+                    next: "idle",
+                    speed: 1
+                },
+                lean_left_fwd: [94, 97, "lean_left_still", 1],
+                lean_left_still: 98,
+                lean_left_back: {
+                    frames: range(97, 94),
+                    next: "idle",
+                    speed: 1
+                },
+                beat_fwd: [101, 103, "beat_still", 1],
+                banana_fwd: [344, 354, "idle", 0.6],
+                surprised_fwd: [356, 360, "surprised_still", 0.8],
+                laugh_fwd: [361, 364, "laugh_still", 0.8],
+                write_fwd: [365, 377, "write_still", 0.8],
+                write_once_fwd: [365, 400, "write_once_still", 0.8],
+                write_infinite_fwd: [365, 396, "write_infinite", 0.8],
+                write_infinite: [381, 396, "write_infinite", 0.8],
+                write_still: 377,
+                write_once_still: 401,
+                write_back: {
+                    frames: range(378, 366),
+                    next: "idle",
+                    speed: 0.8
+                },
+                laugh_back: {
+                    frames: range(364, 361),
+                    next: "idle",
+                    speed: 0.8
+                },
+                surprised_back: {
+                    frames: range(360, 356),
+                    next: "idle",
+                    speed: 0.8
+                },
+                laugh_still: [363, 364, "laugh_still", 0.6],
+                surprised_still: 360,
+                banana_fwd: [344, 354, "banana_back", 0.6],
+                banana_back: [350, 344, "idle", 0.6],
+                beat_still: [104, 107, "beat_still", 1],
+                beat_back: {
+                    frames: range(103, 101),
+                    next: "idle",
+                    speed: 1
+                },
+                cool_fwd: [108, 126, "cool_still", 1],
+                cool_still: 126,
+                cool_back: {
+                    frames: range(126, 108),
+                    next: "idle",
+                    speed: 1
+                },
+                cool_right_fwd: [126, 128, "cool_right_still", 1],
+                cool_right_still: 129,
+                cool_right_back: {
+                    frames: range(128, 126),
+                    next: "idle",
+                    speed: 1
+                },
+                cool_left_fwd: [131, 133, "cool_left_still", 1],
+                cool_left_still: 134,
+                cool_left_back: {
+                    frames: range(133, 131),
+                    next: "cool_still",
+                    speed: 1
+                },
+                cool_adjust: {
+                    frames: [124, 123, 122, 121, 120, 135, 136, 135, 120, 121, 122, 123, 124],
+                    next: "cool_still",
+                    speed: 1
+                },
+                present_fwd: [137, 141, "present_still", 1],
+                present_still: 142,
+                present_back: {
+                    frames: range(141, 137),
+                    next: "idle",
+                    speed: 1
+                },
+                look_left_fwd: [143, 145, "look_left_still", 1],
+                look_left_still: 146,
+                look_left_back: {
+                    frames: range(145, 143),
+                    next: "idle",
+                    speed: 1
+                },
+                look_right_fwd: [149, 151, "look_right_still", 1],
+                look_right_still: 152,
+                look_right_back: {
+                    frames: range(151, 149),
+                    next: "idle",
+                    speed: 1
+                },
+                lean_right_fwd: {
+                    frames: range(158, 156),
+                    next: "lean_right_still",
+                    speed: 1
+                },
+                lean_right_still: 155,
+                lean_right_back: [156, 158, "idle", 1],
+                praise_fwd: [159, 163, "praise_still", 1],
+                praise_still: 164,
+                praise_back: {
+                    frames: range(163, 159),
+                    next: "idle",
+                    speed: 1
+                },
+                greet_fwd: [225, 232, "greet_still", 1],
+                greet_still: 232,
+                greet_back: {
+                    frames: range(232, 225),
+                    next: "idle",
+                    speed: 1
+                },
+                grin_fwd: [182, 189, "grin_still", 1],
+                grin_still: 184,
+                grin_back: {
+                    frames: range(184, 182),
+                    next: "idle",
+                    speed: 1
+                },
+                backflip: [331, 343, "idle", 1],
 	},
 	event_list_joke_open: [
 		[
@@ -347,7 +540,7 @@ window.BonziData = {
 			},
 			{
 				type: "text",
-				text: "Because we KNEAD it. Haha please send money to my PayPal at nigerianprince99@bonzi.com"
+				text: ""Bread" is slang for money because it represents a basic necessity of life, symbolizing livelihood and sustenance since the 19th century. The term gained popularity in the 1930s, heavily influenced by Cockney rhyming slang where bread and honey means money, and is linked to the concept of earning one's daily bread. "
 			}
 		], [
 			{
